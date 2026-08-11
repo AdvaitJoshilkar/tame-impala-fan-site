@@ -1,0 +1,11 @@
+
+/* TAME IMPALA FAN EXPERIENCE — V2 POLISH */
+:root{--v2-pink:#ff4fbd;--v2-cyan:#54f5e5;--v2-orange:#ff9048;--v2-purple:#805cff}
+body{background:radial-gradient(circle at 50% 0%,rgba(128,92,255,.08),transparent 35%),#08070a}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,79,189,.08),transparent 18%);transition:background .2s}
+a,button{transition:transform .25s ease,opacity .25s ease,color .25s ease,background .25s ease,border-color .25s ease}
+a:hover{transform:translateY(-2px)}
+.album-card,.album,.card{transition:transform .4s ease,filter .4s ease,box-shadow .4s ease}
+.album-card:hover,.album:hover,.card:hover{transform:translateY(-8px) scale(1.01);filter:saturate(1.12);box-shadow:0 25px 70px rgba(255,79,189,.13)}
+section{scroll-margin-top:90px}
+@media(max-width:700px){body:before{display:none}}
