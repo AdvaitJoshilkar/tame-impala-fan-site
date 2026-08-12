@@ -1,846 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="description" content="An unofficial fan-made Tame Impala experience.">
-<title>Tame Impala — Fan Experience</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #090909;
-    color: #f5f1e8;
-    font-family: "Space Grotesk", sans-serif;
-    overflow-x: hidden;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 100;
-    opacity: .06;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-button {
-    font: inherit;
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 50;
-    padding: 22px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(14px);
-    background: rgba(9,9,9,.65);
-    border-bottom: 1px solid rgba(255,255,255,.07);
-}
-
-.logo {
-    font-family: "Syne", sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 3px;
-}
-
-.logo span {
-    opacity: .45;
-}
-
-.nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-}
-
-.nav-links a {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: .65;
-    transition: .3s;
-}
-
-.nav-links a:hover {
-    opacity: 1;
-}
-
-.menu {
-    display: none;
-    border: 0;
-    background: transparent;
-    color: white;
-    font-size: 25px;
-}
-
-.hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
-.orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(8px);
-    animation: float 8s ease-in-out infinite;
-}
-
-.orb.one {
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, #d58a39, #672b18 50%, transparent 72%);
-    top: 8%;
-    left: -8%;
-}
-
-.orb.two {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, #a5bd58, #27391a 48%, transparent 72%);
-    right: -12%;
-    bottom: -10%;
-    animation-delay: -3s;
-}
-
-.orb.three {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, #c45b86, #391a38 50%, transparent 72%);
-    top: 35%;
-    left: 45%;
-    opacity: .65;
-    animation-delay: -6s;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1000px;
-    padding: 120px 25px 60px;
-}
-
-.eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    font-size: 12px;
-    opacity: .55;
-    margin-bottom: 25px;
-}
-
-.hero h1 {
-    font-family: "Syne", sans-serif;
-    font-size: clamp(70px, 14vw, 190px);
-    line-height: .8;
-    letter-spacing: -8px;
-    text-transform: uppercase;
-    background: linear-gradient(
-        120deg,
-        #eee8d8,
-        #d58c47,
-        #d8c76b,
-        #9bb75e,
-        #eee8d8
-    );
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradient 8s ease infinite;
-}
-
-.hero p {
-    max-width: 600px;
-    margin: 35px auto;
-    color: rgba(255,255,255,.65);
-    line-height: 1.8;
-}
-
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 14px 25px;
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 100px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 11px;
-    transition: .3s;
-    cursor: pointer;
-}
-
-.btn.primary {
-    background: #eee8d8;
-    color: #111;
-}
-
-.btn:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255,255,255,.7);
-}
-
-section {
-    padding: 120px 7%;
-    position: relative;
-}
-
-.section-label {
-    color: #d6a159;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-size: 11px;
-    margin-bottom: 15px;
-}
-
-.section-title {
-    font-family: "Syne", sans-serif;
-    font-size: clamp(40px, 6vw, 80px);
-    line-height: .95;
-    margin-bottom: 50px;
-}
-
-.intro {
-    max-width: 700px;
-    color: rgba(255,255,255,.62);
-    line-height: 1.9;
-    font-size: 17px;
-}
-
-.albums {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-}
-
-.album {
-    min-height: 390px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    transition: .4s;
-}
-
-.album:hover {
-    transform: translateY(-10px) rotate(-1deg);
-    border-color: rgba(255,255,255,.35);
-}
-
-.album-art {
-    height: 240px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.album-art::before {
-    content: "";
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 22px solid rgba(255,255,255,.55);
-    box-shadow:
-        0 0 0 18px rgba(255,255,255,.08),
-        0 0 0 38px rgba(255,255,255,.05);
-    animation: spin 14s linear infinite;
-}
-
-.album:nth-child(1) .album-art {
-    background: linear-gradient(135deg,#c36c30,#e4bf64,#56703c);
-}
-
-.album:nth-child(2) .album-art {
-    background: linear-gradient(135deg,#c76e55,#e3a55c,#5a3430);
-}
-
-.album:nth-child(3) .album-art {
-    background: linear-gradient(135deg,#738f4d,#c1aa5e,#405c46);
-}
-
-.album h3 {
-    font-family: "Syne", sans-serif;
-    font-size: 25px;
-    margin-top: 20px;
-}
-
-.album small {
-    opacity: .5;
-    display: block;
-    margin-top: 5px;
-}
-
-.music-list {
-    display: grid;
-    gap: 12px;
-    max-width: 900px;
-}
-
-.song {
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 14px;
-    transition: .3s;
-}
-
-.song:hover {
-    background: rgba(255,255,255,.05);
-    transform: translateX(8px);
-}
-
-.song-number {
-    font-size: 12px;
-    opacity: .4;
-}
-
-.song-title {
-    font-weight: 600;
-}
-
-.song-album {
-    font-size: 12px;
-    opacity: .45;
-    margin-top: 5px;
-}
-
-.play {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.2);
-    background: transparent;
-    color: white;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.play:hover {
-    background: white;
-    color: black;
-}
-
-.timeline {
-    position: relative;
-    max-width: 900px;
-    margin: auto;
-}
-
-.timeline::before {
-    content: "";
-    position: absolute;
-    left: 20px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: rgba(255,255,255,.15);
-}
-
-.event {
-    position: relative;
-    padding: 0 0 60px 70px;
-}
-
-.event::before {
-    content: "";
-    position: absolute;
-    left: 13px;
-    top: 5px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #d6a159;
-    box-shadow: 0 0 20px #d6a159;
-}
-
-.year {
-    color: #d6a159;
-    font-size: 12px;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-}
-
-.event h3 {
-    font-family: "Syne", sans-serif;
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.event p {
-    color: rgba(255,255,255,.55);
-    line-height: 1.8;
-    max-width: 650px;
-}
-
-.quote {
-    min-height: 65vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background:
-        radial-gradient(circle at 30% 50%, rgba(202,125,58,.18), transparent 35%),
-        radial-gradient(circle at 70% 50%, rgba(119,155,70,.16), transparent 35%);
-}
-
-.quote blockquote {
-    max-width: 950px;
-    font-family: "Syne", sans-serif;
-    font-size: clamp(30px, 5vw, 65px);
-    line-height: 1.05;
-}
-
-.quote span {
-    display: block;
-    margin-top: 30px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 12px;
-    letter-spacing: 4px;
-    opacity: .4;
-}
-
-footer {
-    padding: 60px 7%;
-    border-top: 1px solid rgba(255,255,255,.08);
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-footer strong {
-    font-family: "Syne", sans-serif;
-}
-
-footer p {
-    color: rgba(255,255,255,.4);
-    font-size: 12px;
-    max-width: 500px;
-    line-height: 1.7;
-}
-
-.reveal {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity .8s ease, transform .8s ease;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.now-playing {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(120px);
-    z-index: 80;
-    padding: 13px 20px;
-    border-radius: 100px;
-    background: rgba(20,20,20,.9);
-    border: 1px solid rgba(255,255,255,.15);
-    backdrop-filter: blur(15px);
-    font-size: 12px;
-    transition: .4s;
-}
-
-.now-playing.active {
-    transform: translateX(-50%) translateY(0);
-}
-
-@keyframes float {
-    0%,100% { transform: translate(0,0) scale(1); }
-    50% { transform: translate(30px,-30px) scale(1.08); }
-}
-
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-@media(max-width: 800px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 70px;
-        right: 5%;
-        flex-direction: column;
-        background: rgba(15,15,15,.95);
-        padding: 25px;
-        border-radius: 15px;
-        border: 1px solid rgba(255,255,255,.1);
-    }
-
-    .nav-links.open {
-        display: flex;
-    }
-
-    .menu {
-        display: block;
-    }
-
-    .albums {
-        grid-template-columns: 1fr;
-    }
-
-    .album {
-        min-height: 350px;
-    }
-
-    section {
-        padding: 90px 6%;
-    }
-
-    .song {
-        grid-template-columns: 35px 1fr auto;
-        gap: 12px;
-    }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A fan-made Tame Impala experience celebrating the music of Kevin Parker.">
+  <title>Tame Impala — Fan Experience V3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body data-v3-ready="false">
 
-<body>
-
-<nav class="navbar">
-    <a href="#home" class="logo">TAME<span>IMPALA</span></a>
-
-    <button class="menu" onclick="toggleMenu()">☰</button>
-
-    <ul class="nav-links" id="navLinks">
-        <li><a href="#music">Music</a></li>
-        <li><a href="#albums">Albums</a></li>
-        <li><a href="#timeline">Timeline</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
-</nav>
-
-<header class="hero" id="home">
-
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-
-    <div class="hero-content">
-        <div class="eyebrow">An unofficial fan experience</div>
-
-        <h1>TAME<br>IMPALA</h1>
-
-        <p>
-            A psychedelic journey through sound, colour and atmosphere.
-            Explore the music, albums and evolution of Kevin Parker's
-            Tame Impala project.
-        </p>
-
-        <div class="hero-buttons">
-            <a class="btn primary" href="#albums">Explore Albums</a>
-            <a class="btn" href="#music">Enter the Music</a>
-        </div>
+  <div class="v3-loader" id="v3Loader" aria-label="Loading Tame Impala fan experience">
+    <div class="v3-loader-inner">
+      <div class="v3-loader-brand">TAME<span>IMPALA</span></div>
+      <div class="v3-loader-status">
+        <span id="v3LoaderText">INITIALIZING EXPERIENCE</span>
+        <span id="v3LoaderPercent">0%</span>
+      </div>
+      <div class="v3-loader-bar"><span id="v3LoaderBar"></span></div>
     </div>
+  </div>
 
-</header>
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
+  <div class="v3-version" aria-hidden="true">V3.0</div>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-<section id="about">
+  <header class="site-header">
+    <a class="brand" href="#home">TAME<span>IMPALA</span></a>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span></button>
+    <nav class="nav">
+      <a href="#music">Music</a>
+      <a href="#story">Story</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#listen">Listen</a>
+    </nav>
+  </header>
 
-    <div class="section-label">01 — The Experience</div>
+  <main id="main-content">
+    <section class="hero" id="home">
+      <div class="orb orb-one"></div>
+      <div class="orb orb-two"></div>
+      <div class="hero-ring ring-one"></div>
+      <div class="hero-ring ring-two"></div>
+      <div class="hero-content">
+        <p class="eyebrow">A FAN-MADE EXPERIENCE • PERTH, AUSTRALIA</p>
+        <h1>TAME<br><em>IMPALA</em></h1>
+        <p class="hero-copy">Sound becomes color. Time folds in on itself. Step inside the psychedelic world of Kevin Parker.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#music">Explore the music <span>↘</span></a>
+          <a class="button ghost" href="#story">Enter the story</a>
+        </div>
+      </div>
+      <div class="scroll-cue"><span></span>SCROLL TO DESCEND</div>
+      <div class="hero-meta"><span>01</span><span>PSYCHEDELIC POP / ROCK</span><span>EST. 2007</span></div>
+    </section>
 
-    <h2 class="section-title reveal">
-        Music that<br>feels like a dream.
-    </h2>
+    <section class="intro v3-reveal">
+      <div class="section-label">01 / THE PROJECT</div>
+      <div class="intro-grid">
+        <h2>One mind.<br><span>Infinite echoes.</span></h2>
+        <div>
+          <p class="large-copy">Tame Impala is the psychedelic music project of Australian multi-instrumentalist, songwriter and producer Kevin Parker.</p>
+          <p>What began as a home-recording project in Perth grew into one of the most distinctive sounds of the 21st century — blurring psychedelic rock, synth-pop, disco and electronic production into something unmistakably its own.</p>
+        </div>
+      </div>
+    </section>
 
-    <p class="intro reveal">
-        What started as a bedroom recording project evolved into one of
-        modern psychedelic music's most distinctive sounds. Tame Impala
-        blends psychedelic rock, electronic production, disco, pop and
-        introspective songwriting into something that feels completely
-        its own.
-    </p>
+    <section class="music-section v3-reveal" id="music">
+      <div class="section-heading">
+        <div>
+          <div class="section-label">02 / DISCOGRAPHY</div>
+          <h2>THE <span>ALBUMS</span></h2>
+        </div>
+        <p>Four worlds.<br>One continuous evolution.</p>
+      </div>
 
-</section>
-
-<section id="albums">
-
-    <div class="section-label">02 — Discography</div>
-
-    <h2 class="section-title reveal">The albums.</h2>
-
-    <div class="albums">
-
-        <article class="album reveal">
-            <div class="album-art"></div>
-
-            <div>
-                <h3>Currents</h3>
-                <small>2015</small>
-            </div>
+      <div class="albums v3-stagger">
+        <article class="album-card" data-album="innerspeaker">
+          <div class="album-art art-inner"><div class="art-text">INNER<br>SPEAKER</div><div class="sun"></div></div>
+          <div class="album-info"><span>2010</span><h3>Innerspeaker</h3><p>The beginning of the journey.</p><button class="album-button">View album ↗</button></div>
         </article>
-
-        <article class="album reveal">
-            <div class="album-art"></div>
-
-            <div>
-                <h3>The Slow Rush</h3>
-                <small>2020</small>
-            </div>
+        <article class="album-card" data-album="lonerism">
+          <div class="album-art art-loner"><div class="art-text">LONERISM</div><div class="mountain"></div></div>
+          <div class="album-info"><span>2012</span><h3>Lonerism</h3><p>Isolation, color and expanding horizons.</p><button class="album-button">View album ↗</button></div>
         </article>
-
-        <article class="album reveal">
-            <div class="album-art"></div>
-
-            <div>
-                <h3>InnerSpeaker</h3>
-                <small>2010</small>
-            </div>
+        <article class="album-card" data-album="currents">
+          <div class="album-art art-current"><div class="art-text">CURRENTS</div><div class="vortex"></div></div>
+          <div class="album-info"><span>2015</span><h3>Currents</h3><p>Transformation in motion.</p><button class="album-button">View album ↗</button></div>
         </article>
+        <article class="album-card" data-album="slowrush">
+          <div class="album-art art-slow"><div class="art-text">THE<br>SLOW RUSH</div><div class="red-wave"></div></div>
+          <div class="album-info"><span>2020</span><h3>The Slow Rush</h3><p>Time, memory and the future.</p><button class="album-button">View album ↗</button></div>
+        </article>
+      </div>
+    </section>
 
+    <section class="story v3-reveal" id="story">
+      <div class="story-visual">
+        <div class="portal"></div>
+        <div class="story-tag">KEVIN PARKER</div>
+      </div>
+      <div class="story-copy">
+        <div class="section-label">03 / THE STORY</div>
+        <h2>MADE IN<br><span>THE MIND.</span></h2>
+        <p>From bedroom recordings to global stages, Tame Impala has remained deeply tied to Kevin Parker's singular creative process. Parker writes, records, performs and produces the project's music, shaping every layer into a carefully constructed sonic universe.</p>
+        <p>The result is music that can feel simultaneously intimate and enormous — songs about change, identity, relationships and the strange feeling of watching time move.</p>
+        <a class="text-link" href="#timeline">Trace the evolution →</a>
+      </div>
+    </section>
+
+    <section class="timeline-section v3-reveal" id="timeline">
+      <div class="section-label">04 / EVOLUTION</div>
+      <h2>THE <span>JOURNEY</span></h2>
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <article class="time-item"><div class="time-year">2007</div><div class="dot"></div><div><h3>The project begins</h3><p>Kevin Parker starts recording as Tame Impala in Perth, Western Australia.</p></div></article>
+        <article class="time-item"><div class="time-year">2010</div><div class="dot"></div><div><h3>Innerspeaker</h3><p>The debut album introduces the project's immersive psychedelic sound.</p></div></article>
+        <article class="time-item"><div class="time-year">2012</div><div class="dot"></div><div><h3>Lonerism</h3><p>A wider palette, bigger melodies and a deeper exploration of isolation.</p></div></article>
+        <article class="time-item"><div class="time-year">2015</div><div class="dot"></div><div><h3>Currents</h3><p>The sound shifts toward synths, pop structures and themes of personal transformation.</p></div></article>
+        <article class="time-item"><div class="time-year">2020</div><div class="dot"></div><div><h3>The Slow Rush</h3><p>A meditation on time and memory, built from disco grooves and expansive production.</p></div></article>
+      </div>
+    </section>
+
+    <section class="listen v3-reveal" id="listen">
+      <div class="listen-bg"></div>
+      <div class="listen-content">
+        <div class="section-label">05 / PRESS PLAY</div>
+        <h2>LOSE YOURSELF<br><span>IN THE SOUND.</span></h2>
+        <p>Choose your portal. Turn it up. Let the walls melt.</p>
+        <div class="stream-links">
+          <a href="https://open.spotify.com/artist/5INjqkS1o8h1yAIAjDL0" target="_blank" rel="noopener">Spotify ↗</a>
+          <a href="https://www.youtube.com/@tameimpala" target="_blank" rel="noopener">YouTube ↗</a>
+          <a href="https://www.tameimpala.com/" target="_blank" rel="noopener">Official site ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">TAME IMPALA</div>
+    <p>Fan-made concept • Not affiliated with Tame Impala or Kevin Parker.</p>
+    <a href="#home">BACK TO TOP ↑</a>
+  </footer>
+
+  <div class="album-modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-art"></div>
+      <div class="modal-details">
+        <span class="modal-year"></span>
+        <h2 class="modal-title"></h2>
+        <p class="modal-description"></p>
+        <ol class="tracklist"></ol>
+      </div>
     </div>
+  </div>
 
-</section>
-
-<section id="music">
-
-    <div class="section-label">03 — Listen</div>
-
-    <h2 class="section-title reveal">The essentials.</h2>
-
-    <div class="music-list">
-
-        <div class="song reveal">
-            <div class="song-number">01</div>
-
-            <div>
-                <div class="song-title">Let It Happen</div>
-                <div class="song-album">Currents</div>
-            </div>
-
-            <button class="play" onclick="playSong('Let It Happen')">▶</button>
-        </div>
-
-        <div class="song reveal">
-            <div class="song-number">02</div>
-
-            <div>
-                <div class="song-title">The Less I Know The Better</div>
-                <div class="song-album">Currents</div>
-            </div>
-
-            <button class="play" onclick="playSong('The Less I Know The Better')">▶</button>
-        </div>
-
-        <div class="song reveal">
-            <div class="song-number">03</div>
-
-            <div>
-                <div class="song-title">Borderline</div>
-                <div class="song-album">The Slow Rush</div>
-            </div>
-
-            <button class="play" onclick="playSong('Borderline')">▶</button>
-        </div>
-
-        <div class="song reveal">
-            <div class="song-number">04</div>
-
-            <div>
-                <div class="song-title">Eventually</div>
-                <div class="song-album">Currents</div>
-            </div>
-
-            <button class="play" onclick="playSong('Eventually')">▶</button>
-        </div>
-
-        <div class="song reveal">
-            <div class="song-number">05</div>
-
-            <div>
-                <div class="song-title">Feels Like We Only Go Backwards</div>
-                <div class="song-album">Lonerism</div>
-            </div>
-
-            <button class="play" onclick="playSong('Feels Like We Only Go Backwards')">▶</button>
-        </div>
-
-    </div>
-
-</section>
-
-<section id="timeline">
-
-    <div class="section-label">04 — Evolution</div>
-
-    <h2 class="section-title reveal">The journey.</h2>
-
-    <div class="timeline">
-
-        <div class="event reveal">
-            <div class="year">2007</div>
-            <h3>The Beginning</h3>
-            <p>
-                Tame Impala begins as Kevin Parker's recording project in
-                Perth, Australia.
-            </p>
-        </div>
-
-        <div class="event reveal">
-            <div class="year">2010</div>
-            <h3>InnerSpeaker</h3>
-            <p>
-                The debut album introduces the world to Tame Impala's
-                psychedelic sound.
-            </p>
-        </div>
-
-        <div class="event reveal">
-            <div class="year">2012</div>
-            <h3>Lonerism</h3>
-            <p>
-                A deeper and more expansive record exploring isolation,
-                identity and the feeling of being an outsider.
-            </p>
-        </div>
-
-        <div class="event reveal">
-            <div class="year">2015</div>
-            <h3>Currents</h3>
-            <p>
-                The sound evolves dramatically, moving toward synth-heavy
-                psychedelic pop and becoming a defining album of the decade.
-            </p>
-        </div>
-
-        <div class="event reveal">
-            <div class="year">2020</div>
-            <h3>The Slow Rush</h3>
-            <p>
-                Time, memory and change become central themes in Tame
-                Impala's most polished and electronic era.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="quote">
-
-    <div>
-        <blockquote class="reveal">
-            "Let it happen."
-        </blockquote>
-
-        <span>— TAME IMPALA</span>
-    </div>
-
-</section>
-
-<footer>
-
-    <div>
-        <strong>TAME IMPALA</strong>
-        <p>
-            An unofficial fan-made website created as a web development
-            project. Not affiliated with Tame Impala or Kevin Parker.
-        </p>
-    </div>
-
-    <p>
-        Built with HTML, CSS & JavaScript<br>
-        © 2026 Fan Project
-    </p>
-
-</footer>
-
-<div class="now-playing" id="nowPlaying"></div>
-
-<script>
-function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("open");
-}
-
-const observer = new IntersectionObserver(
-    entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-            }
-        });
-    },
-    {
-        threshold: 0.15
-    }
-);
-
-document.querySelectorAll(".reveal").forEach(element => {
-    observer.observe(element);
-});
-
-function playSong(song) {
-    const player = document.getElementById("nowPlaying");
-
-    player.textContent = "♫ Now playing: " + song;
-    player.classList.add("active");
-
-    setTimeout(() => {
-        player.classList.remove("active");
-    }, 3000);
-}
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        document.getElementById("navLinks").classList.remove("open");
-    });
-});
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
