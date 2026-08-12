@@ -14,15 +14,16 @@ const albums = {
     description:"A transformation toward synth-pop and electronic textures, centered on change, relationships and moving forward.",
     tracks:["Let It Happen","Nangs","The Moment","Reality in Motion","Eventually","Disciples","Cause I'm a Man","New Person, Same Old Mistakes"]
   },
-  slowrush: {
-  year:"2020", title:"The Slow Rush", className:"art-slow",
-  description:"A record obsessed with the passage of time, memory and the tension between living in the present and looking ahead.",
-  tracks:["One More Year","Instant Destiny","Borderline","Posthumous Forgiveness","Breathe Deeper","Tomorrow's Dust","On Track","Is It True"]
-},
-deadbeat: {
-  year:"2025", title:"Deadbeat", className:"art-deadbeat",
-  description:"A club-psych evolution inspired by rave culture, spontaneous production and direct songwriting.",
-  tracks:["My Old Ways","No Reply","Dracula","Loser","Oblivion","Not My World","Piece of Heaven","Obsolete","Ethereal Connection","See You On Monday (You're Lost)","Afterthought","End of Summer"]
+   slowrush: {
+    year:"2020", title:"The Slow Rush", className:"art-slow",
+    description:"A record obsessed with the passage of time, memory and the tension between living in the present and looking ahead.",
+    tracks:["One More Year","Instant Destiny","Borderline","Posthumous Forgiveness","Breathe Deeper","Tomorrow's Dust","On Track","Is It True"]
+  },
+  deadbeat: {
+    year:"2025", title:"Deadbeat", className:"art-deadbeat",
+    description:"A club-psych evolution inspired by rave culture, spontaneous production and direct songwriting.",
+    tracks:["My Old Ways","No Reply","Dracula","Loser","Oblivion","Not My World","Piece of Heaven","Obsolete","Ethereal Connection","See You On Monday (You're Lost)","Afterthought","End of Summer"]
+  }
 };
 
 const header = document.querySelector(".site-header");
